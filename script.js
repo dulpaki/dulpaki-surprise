@@ -13,22 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPhotos = 10; 
     const photoImageFiles = [];
     for (let i = 1; i <= totalPhotos; i++) {
-        photoImageFiles.push(`images/${i}.jpeg`);
+        photoImageFiles.push(`images/${i}.jpg`);
     }
     const illustrationFiles = [/* 'images/illust1.png' */];
     const allStreamingImages = [...photoImageFiles, ...illustrationFiles];
 
-    // --- ★★★ スマホ判定を追加 ★★★ ---
+    // --- スマホ判定 ---
     const isMobile = window.innerWidth <= 768;
 
     // --- アニメーション設定 ---
     const rowDurations = [28, 35, 24]; 
     const rowDirections = ['scroll-left-to-right', 'scroll-right-to-left', 'scroll-left-to-right'];
     const rowStates = [
-        // スマホの場合はクールダウンを長くして、重なりを減らす
-        { busy: false, cooldown: isMobile ? 8000 : 5000 }, 
-        { busy: false, cooldown: isMobile ? 8000 : 5000 }, 
-        { busy: false, cooldown: isMobile ? 8000 : 5000 }
+        { busy: false, cooldown: isMobile ? 10000 : 5000 }, 
+        { busy: false, cooldown: isMobile ? 10000 : 5000 }, 
+        { busy: false, cooldown: isMobile ? 10000 : 5000 }
     ];
     // -----------------------------------------------------------
 
@@ -46,20 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- メインの処理 ---
     function initialize() {
         loader.classList.add('hidden');
-        // setupMainVisual(); // HTMLに直接書いたので不要
         setupThumbnailGallery();
         startStreamingAnimation();
         setupEventListeners();
     }
-
-    // メインビジュアルはHTMLに直接記述したため、この関数は不要になりました。
-    /* function setupMainVisual() {
-        const mainImg = document.createElement('img');
-        mainImg.src = mainVisualImage;
-        mainImg.id = 'main-visual-img';
-        mainStage.appendChild(mainImg);
-    } */
-
+    
     function setupThumbnailGallery() {
         photoImageFiles.forEach(src => {
             const thumbImg = document.createElement('img');
@@ -79,23 +69,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = document.createElement('img');
         img.src = randomSrc;
         img.className = 'streaming-image';
-        const size = isMobile ? (Math.random() * 8 + 10) : (Math.random() * 10 + 15); // スマホ: 10-18vh, PC: 15-25vh
-        const topPosition = [10, 40, 70];
+        
+        const size = isMobile ? (Math.random() * 5 + 8) : (Math.random() * 10 + 15);
+        const topPosition = [15, 45, 75];
+        
         img.style.top = `${topPosition[row]}%`;
         img.style.height = `${size}vh`;
         img.style.width = 'auto';
+
         const duration = rowDurations[row];
         const direction = rowDirections[row];
-        img.style.animationName = direction;
-        img.style.animationDuration = `${duration}s`;
+
+        // ★★★ ここからが修正点 ★★★
+        // 先にDOMに追加する
         mainStage.appendChild(img);
-        setTimeout(() => img.remove(), duration * 1000);
+
+        // ほんの僅かに遅延させてからアニメーションを開始する
+        setTimeout(() => {
+            img.style.animationName = direction;
+            img.style.animationDuration = `${duration}s`;
+        }, 10); // 10ミリ秒の遅延
+        // ★★★ 修正点ここまで ★★★
+
+        setTimeout(() => {
+            img.remove();
+        }, duration * 1000 + 50); // 念のため少し余裕を持たせる
     }
 
-    // アニメーションを開始する関数（スマホ判定を反映）
+    // アニメーションを開始する関数
     function startStreamingAnimation() {
-        // スマホの場合は画像生成の間隔を長くする
-        const creationInterval = isMobile ? 2500 : 1000;
+        const creationInterval = isMobile ? 3500 : 1000;
 
         setInterval(() => {
             const availableRows = [];
