@@ -305,6 +305,11 @@ position: absolute;
     font-size: 13px;
     text-align: center;
 }
+.QR img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
 
 @media screen and (max-width:750px) {
     .main-visual-container {
