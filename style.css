@@ -69,7 +69,7 @@ body {
 
 /* メインステージのスタイル */
 #main-stage {
-    height: 100vh; /* 画面の高さいっぱいに表示 */
+    height: 100dvh; /* 画面の高さいっぱいに表示 */
     position: relative;
     width: 100%;
     overflow: hidden;
