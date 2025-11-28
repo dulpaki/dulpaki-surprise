@@ -217,7 +217,7 @@ position: absolute;
 
 .streaming-image {
     position: absolute;
-    opacity: 0.9;
+    opacity: 0; /* ★変更点: 初期状態を透明にする */
     border-radius: 10px;
     border: 2px solid white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -226,13 +226,19 @@ position: absolute;
 }
 
 @keyframes scroll-left-to-right {
-    from { transform: translateX(-150%); }
-    to { transform: translateX(150vw); }
+    /* ★変更点: アニメーションの途中でフェードイン・アウトを追加 */
+    0%   { transform: translateX(-150%); opacity: 0; }
+    5%   { opacity: 0.9; }
+    95%  { opacity: 0.9; }
+    100% { transform: translateX(150vw); opacity: 0; }
 }
 
 @keyframes scroll-right-to-left {
-    from { transform: translateX(150vw); }
-    to { transform: translateX(-150%); }
+    /* ★変更点: アニメーションの途中でフェードイン・アウトを追加 */
+    0%   { transform: translateX(150vw); opacity: 0; }
+    5%   { opacity: 0.9; }
+    95%  { opacity: 0.9; }
+    100% { transform: translateX(-150%); opacity: 0; }
 }
 
 /* --- ライトボックス（ポップアップ）のスタイル --- */

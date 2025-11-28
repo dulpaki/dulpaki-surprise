@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPhotos = 10; 
     const photoImageFiles = [];
     for (let i = 1; i <= totalPhotos; i++) {
-        photoImageFiles.push(`images/${i}.jpg`);
+        photoImageFiles.push(`images/${i}.jpeg`);
     }
     const illustrationFiles = [/* 'images/illust1.png' */];
     const allStreamingImages = [...photoImageFiles, ...illustrationFiles];
