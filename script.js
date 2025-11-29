@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 設定 -------------------------------------------------
     const mainVisualImage = 'images/main-visual.jpg'; 
-    const totalPhotos = 9; 
+    const totalPhotos = 21; 
     const photoImageFiles = [];
     for (let i = 1; i <= totalPhotos; i++) {
         photoImageFiles.push(`images/${i}.jpeg`);
